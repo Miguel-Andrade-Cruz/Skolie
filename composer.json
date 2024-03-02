@@ -1,0 +1,17 @@
+{
+    "name": "minuz/skoolie",
+    "description": "Um simples gerenciador de avaliações para escolas",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Minuz\\Skoolie\\": "./"
+        }
+    },
+    "authors": [
+        {
+            "name": "Angelium-Eddra",
+            "email": "angelium.eddra1972@gmail.com"
+        }
+    ],
+    "require": {}
+}

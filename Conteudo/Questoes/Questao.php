@@ -13,7 +13,7 @@ abstract class Questao
 
 
     // GETTERS E SETTERS
-    public function pegaPergunta(): string
+    public function pegarPergunta(): string
     {
         return $this->pergunta . PHP_EOL;
     }
@@ -21,11 +21,9 @@ abstract class Questao
     abstract public function responder(string $resposta): void;
 
 
-    public function verResposta(): string 
+    public function pegarResposta(): string 
     {
         return $this->resposta;
     }
 
- 
-    
 }

@@ -1,16 +1,22 @@
 <?php
 
 
-namespace Minuz\Skoolie\Pessoas\Turma;
+namespace Minuz\Skoolie\Pessoas\Grupos\Turma;
 use Minuz\Skoolie\Dados\BancoProvas;
 
 class Turma
 {
     protected array $alunosDaTurma = [];
+    protected $ProvasDaTurma = [];
     
     public function __construct(public string $Turma)
     {
-        $Provas = new BancoProvas($this->Turma);
+        $this->ProvasDaTurma = new BancoProvas($this->Turma);
+    }
+
+    public function adicionarProvaModelo($avaliacao): void
+    {
+        $this->ProvasDaTurma[$avaliacao->pegarNIP()] = $avaliacao;
     }
 
 
@@ -18,6 +24,7 @@ class Turma
     {
         $this->alunosDaTurma[$aluno->pegaRM()] = $aluno;
     }
-
+    
+    
     
 }

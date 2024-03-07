@@ -7,22 +7,21 @@ abstract class Cache
     public function __construct(protected string $nome)
     {}
 
-    public function guardarAvaliacaoEmCache(Prova|Exercicio &$avaliacao): void
+    public function guardaAvaliacaoEmCache(Prova|Exercicio $avaliacao): void
     {
-        $this->minhasAvaliacoes[$avaliacao->pegarNIP()] = $avaliacao;
+        $this->minhasAvaliacoes[$avaliacao->pegaNIP()] = $avaliacao;
     }
     
-    
 
-    public function &enviarAvaliacaoAoBanco($NIP): Prova|Exercicio
+    public function removeAvaliacaoDoCache($NIP): void 
     {
-        $avaliacao = $this->minhasAvaliacoes[$NIP];
-        return $avaliacao;
-
+        unset($this->minhasAvaliacoes[$NIP]);
     }
+
     
-    public function &acessarAvaliacao($NIP): Prova|Exercicio
+    public function &pegaAvaliacao($NIP): Prova|Exercicio
     {
         return $this->minhasAvaliacoes[$NIP];
     }
+    
 }

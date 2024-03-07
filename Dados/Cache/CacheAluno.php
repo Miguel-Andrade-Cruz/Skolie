@@ -16,12 +16,20 @@ class CacheAluno extends Cache
 
 
 
-    public function verListaAvaliacoes(): void 
+    public function veListaAvaliacoes(): void 
     {
         $avaliacoes = "Aqui estão suas provas ainda não respondidas por completo:" . PHP_EOL;
         foreach($this->minhasAvaliacoes as $avaliacao) {
+
+            $tipoAvaliacao = get_class($avaliacao);
             
-            $avaliacoes .= "Avaliacao: {$avaliacao->titulo}" . PHP_EOL;
+            $questoesRespondidas = $avaliacao->pegaTotalRespondidas();
+            $totalDeQuestoes = $tipoAvaliacao::pegaMaximoQuestoes();
+
+
+
+            $avaliacoes .=
+            "Avaliacao: {$avaliacao->titulo}. {$questoesRespondidas} de {$totalDeQuestoes} respondidas" . PHP_EOL;
         }
 
         echo $avaliacoes;

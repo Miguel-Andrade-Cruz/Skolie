@@ -1,6 +1,9 @@
 <?php
-use Minuz\Skoolie\Conteudo\Questoes\Objetivas\Afirmativa;
 define ("RAIZ", __DIR__);
+define ("PROVA", "Minuz\\Skoolie\\Conteudo\\Avaliacoes\\Prova");
+define ("EXERCICIO", "Minuz\\Skoolie\\Conteudo\\Avaliacoes\\Exercicio");
+
+use Minuz\Skoolie\Conteudo\Questoes\Objetivas\Afirmativa;
 require_once './vendor/autoload.php';
 
 
@@ -35,13 +38,17 @@ $maisDelas = [
     new Afirmativa("Mim roubaram", "F"),
 ];
 
-$Rosana->montarProva("134-XXXX", "Integradores", $terceiroB->Turma, $questoes);
-$cleber = $Rosana->montarExercicio("164-XXXX", "Realização", $terceiroB->Turma, $maisDelas);
+$Rosana->montaAvaliacao(PROVA, "134-XXXX", "Integradores", $terceiroB->Turma, $questoes);
+$Rosana->montaAvaliacao(EXERCICIO, "164-XXXX", "Realização", $terceiroB->Turma, $maisDelas);
+
+
+$Rosana->entregaAvaliacao("134-XXXX");
+$Rosana->entregaAvaliacao("164-XXXX");
 
 
 
+$rodrigo->veListaAvaliacoes();
 
-$Rosana->entregarProvasProntas();
+$rodrigo->respondeAvaliacao("164-XXXX", [1 => "V", 2 => "F", 3 => "F"]);
 
-$Rosana->verMinhasAvaliacoes();
-
+$rodrigo->veListaAvaliacoes();

@@ -17,7 +17,7 @@ class Exercicio extends Avaliacao
     }
 
 
-    public static function pegarMaximoQuestoes(): int
+    public static function pegaMaximoQuestoes(): int
     {
         return self::$maximoQuestoes;
     }

@@ -14,7 +14,14 @@ class BancoProvas
 
 
 
-    public function adicionarProvaAluno(&$provaAluno): void 
+    public function adicionaProvaModelo($provaModelo):void
+    {
+        $this->ProvasModelo[$provaModelo->pegaTitulo()] = $provaModelo;
+    }
+
+
+
+    public function adicionaProvaAluno($provaAluno): void 
     {
         $this->ProvasAlunos[$provaAluno->nome] = $provaAluno;
     }

@@ -4,7 +4,7 @@ namespace Minuz\Skoolie\Conteudo\Questoes;
 
 abstract class Questao
 {
-    protected string $resposta  = "Preencher";
+    protected string $resposta = "[. . .]";
 
     public function __construct(protected string $pergunta)
     {
@@ -13,15 +13,15 @@ abstract class Questao
 
 
     // GETTERS E SETTERS
-    public function pegarPergunta(): string
+    public function pegaPergunta(): string
     {
-        return $this->pergunta . PHP_EOL;
+        return $this->pergunta;
     }
     
-    abstract public function responder(string $resposta): void;
+    abstract public function responde(string $resposta): void;
 
 
-    public function pegarResposta(): string 
+    public function pegaResposta(): string 
     {
         return $this->resposta;
     }

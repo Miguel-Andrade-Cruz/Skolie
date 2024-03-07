@@ -9,7 +9,6 @@ use Minuz\Skoolie\Conteudo\Questoes\validacao\validaResposta;
 class Afirmativa extends Objetiva
 {
 
-    use validaResposta;
 
     protected static array $respostas_validas = ["V", "F"];
 
@@ -18,7 +17,7 @@ class Afirmativa extends Objetiva
         parent::__construct($pergunta, $resposta_certa);
     }
     
-    public static function pegaRespostasValidas(): array
+    public static function confereRespostasValidas(): array
     {
         return self::$respostas_validas;
     }

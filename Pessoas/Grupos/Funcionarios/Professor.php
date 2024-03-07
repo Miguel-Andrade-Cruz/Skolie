@@ -1,11 +1,11 @@
 <?php
 namespace Minuz\Skoolie\Pessoas\Grupos\Funcionarios;
 
-use Minuz\Skoolie\Pessoas\Grupos\Funcionarios\Funcionario;
 use Minuz\Skoolie\Conteudo\Avaliacoes\{Prova, Exercicio};
 use Minuz\Skoolie\Dados\Cache\CacheProf;
 use Minuz\Skoolie\Fluxo_dados\avaliacoes_fluxo;
 use Minuz\Skoolie\Pessoas\Grupos\Turma\Turma;
+use Minuz\Skoolie\Pessoas\Grupos\Funcionarios\Funcionario;
 
 class Professor extends Funcionario
 {
@@ -21,69 +21,65 @@ class Professor extends Funcionario
 
 
 
-
-
-
-    public function montarProva(
+    // Resolver como criar prova|exercicio com apenas um método
+    public function montaAvaliacao(
+        string $tipoAvaliacao,
         string $NIP,
         string $titulo,
         string $turma,
         array|false $questoes = false
-    ): Prova
+    ): void
     {
-        $novaProva = new Prova($this->nome, $turma, $titulo, $NIP);
         // Nova prova (vazia) adicionada ao cache
-        $this->minhasAvaliacoes->guardarAvaliacaoEmCache($novaProva);
+        $this->minhasAvaliacoes->guardaAvaliacaoEmCache(
+            new $tipoAvaliacao($this->nome, $turma, $titulo, $NIP)
+        );
         
         // Busca e adiciona as questões colocadas
         if(is_array($questoes)) {
-            $this->adicionaQuestoes($novaProva->pegarNIP(), $questoes);
+            $this->adicionaQuestoes($NIP, $questoes);
         }
 
-        return $novaProva;
+        return;
     }
     
+
+
+
+
     
 
-
-
-    public function montarExercicio(
-        string $NIP,
-        string $titulo,
-        string $turma, 
-        array|false $questoes = false
-    ): Exercicio
+    public function visualizaAvaliacao($NIP): void
     {
-        $novoExercicio = new Exercicio($this->nome, $turma, $titulo, $NIP);
-        $this->minhasAvaliacoes->guardarAvaliacaoEmCache($novoExercicio);
-        
-        if(is_array($questoes)) {
-            $this->adicionaQuestoes($novoExercicio->pegarNIP(), $questoes);
-        
-        }
-
-        return $novoExercicio;
+        $avaliacao = $this->minhasAvaliacoes->pegaAvaliacao($NIP);
+        $avaliacao->visualizaAvaliacao();
     }
+
+    
 
 
     
     public function verMinhasAvaliacoes(): void
     {
-        $this->minhasAvaliacoes->verListaAvaliacoes();
+        $this->minhasAvaliacoes->veListaAvaliacoes();
     }
 
 
-    public function entregarProvasProntas()
+    public function entregaAvaliacao($NIP): void
     {
-        foreach($this->minhasAvaliacoes as &$avaliacao) {
-            $tipo = get_class($avaliacao);
+        $avaliacao = $this->minhasAvaliacoes->pegaAvaliacao($NIP);
+        $tipoAvaliacao = get_class($avaliacao);
+        $limite = $tipoAvaliacao::pegaMaximoQuestoes();
+
+        if($avaliacao->pegaNumeroQuestoes() === $limite) {
+            $this->turma->adicionaProvaModelo($avaliacao);
+            $this->minhasAvaliacoes->removeAvaliacaoDoCache($NIP);
             
-            if($avaliacao->numeroQuestoes == $tipo::$maximoQuestoes) {
-                
-                $this->turma->adicionarProvaModelo($avaliacao);
-            }
+            return;
         }
+
+        echo "Você ainda não completou a quantidade de questões da avaliação." . PHP_EOL;
+        
     }
-// TODO Fazer conexão professor -- banco de dados
 
 }

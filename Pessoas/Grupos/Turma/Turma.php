@@ -1,8 +1,8 @@
 <?php
 
-
 namespace Minuz\Skoolie\Pessoas\Grupos\Turma;
 use Minuz\Skoolie\Dados\BancoProvas;
+
 
 class Turma
 {
@@ -14,9 +14,17 @@ class Turma
         $this->ProvasDaTurma = new BancoProvas($this->Turma);
     }
 
-    public function adicionarProvaModelo($avaliacao): void
+    public function adicionaProvaModelo($avaliacao): void
     {
-        $this->ProvasDaTurma[$avaliacao->pegarNIP()] = $avaliacao;
+        $this->ProvasDaTurma->adicionaProvaModelo($avaliacao);
+
+        foreach ($this->alunosDaTurma as $aluno) {
+            
+            $complementoDoNIP = $aluno->pegaRM();
+            $avaliacao->completaNIP($complementoDoNIP);
+            
+            $aluno->acessoAoCache($avaliacao);
+        }
     }
 
 

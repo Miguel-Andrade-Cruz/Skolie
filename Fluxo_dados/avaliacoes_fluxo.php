@@ -12,12 +12,12 @@ trait avaliacoes_fluxo
     
     public function adicionaQuestoes(string $NIP, array $questoes): void
     {
-        $prova  = $this->pegarAvaliacao($NIP);
+        $prova  = $this->pegaAvaliacao($NIP);
         
-        $prova->adicionarQuestoes($questoes);
+        $prova->adicionaQuestoes($questoes);
 
         
-        $this->minhasAvaliacoes->guardarAvaliacaoEmCache($prova);
+        $this->minhasAvaliacoes->guardaAvaliacaoEmCache($prova);
         
     }
     
@@ -26,9 +26,9 @@ trait avaliacoes_fluxo
     
     public function removeQuestoes(string $NIP, array $enumeradoDasQuestoes): void 
     {
-        $prova = $this->pegarAvaliacao($NIP);
+        $prova = $this->pegaAvaliacao($NIP);
         
-        $prova->removerQuestoes($enumeradoDasQuestoes);
+        $prova->removeQuestoes($enumeradoDasQuestoes);
 
         $this->minhasAvaliacoes->guardarAvaliacao($prova);
     }
@@ -38,7 +38,7 @@ trait avaliacoes_fluxo
 
     public function acesssarQuestoes($NIP): void 
     {
-        $prova = $this->minhasAvaliacoes->verAvaliacao($NIP);
-        $prova->visualizarQuestoes();
+        $prova = $this->minhasAvaliacoes->veAvaliacao($NIP);
+        $prova->visualizaQuestoes();
     }
 }

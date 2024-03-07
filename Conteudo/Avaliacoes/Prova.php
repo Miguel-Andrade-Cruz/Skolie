@@ -5,7 +5,7 @@ namespace Minuz\Skoolie\Conteudo\Avaliacoes;
 class Prova extends Avaliacao
 {
 
-    protected static int $maximoQuestoes = 10;
+    protected static int $maximoQuestoes = 4;
     
     public function __construct(
         string $Professor,
@@ -16,7 +16,7 @@ class Prova extends Avaliacao
         parent::__construct($Professor, $Turma, $titulo, $NIP);
     }
 
-    public static function pegarMaximoQuestoes(): int
+    public static function pegaMaximoQuestoes(): int
     {
         return self::$maximoQuestoes;
     }

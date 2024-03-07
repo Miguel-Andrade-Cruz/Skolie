@@ -23,6 +23,13 @@ class Aluno extends Pessoa
 
 
 
+
+
+    public function veListaAvaliacoes(): void
+    {
+        $this->minhasAvaliacoes->veListaAvaliacoes();
+    }
+
     public function pegaRM(): int 
     {
         return $this->RM;
@@ -30,16 +37,22 @@ class Aluno extends Pessoa
 
 
 
-    public function responderAvaliacao(string $NIP, array $respostas): void 
+
+    public function acessoAoCache($avaliacao): void
     {
-        $avaliacao = $this->pegarAvaliacao($NIP);
-        $avaliacao->completarNIP($this->RM);
+        $this->minhasAvaliacoes->guardaAvaliacaoEmCache($avaliacao);
+    }
+
+    
+    
+    
+    public function respondeAvaliacao(string $NIP, array $respostas): void 
+    {
+        $avaliacao = $this->pegaAvaliacao($NIP);
+        $avaliacao->completaNIP($this->RM);
 
 
-        foreach ($respostas as $numeroQuestao => $resposta) {
-            $avaliacao->responderQuestao($numeroQuestao, $resposta);
-        }
+        $avaliacao->respondeAvaliacao($respostas);
 
-        $this->minhasAvaliacoes->guardarAvaliacaoEmCache($avaliacao);
     }
 }

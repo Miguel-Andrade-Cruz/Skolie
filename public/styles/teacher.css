@@ -1,0 +1,35 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    display:flex;
+    flex-direction: row;
+    gap: 20px;
+}
+
+nav {
+    border: 1px solid black;
+    width: 500px;
+    height: 90vh;
+}
+
+main {
+    border: 1px solid black;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 15px;
+    width: 700px;
+}
+
+section {
+    border: 1px solid black;
+    padding: 30px 15px 0px 15px;
+    height: 300px;
+
+}
+
+section div{
+    width: 200px;
+    height: 100px;
+    background-color: rgb(69, 69, 144);
+    border-radius: 20px 20px 0px 0px;
+}
